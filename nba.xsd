@@ -1,0 +1,73 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <!-- Définition du schéma pour le fichier NBA_Data -->
+  <xs:element name="NBA_Data">
+    <xs:complexType> <!-- Contient élément enfant -->
+      <xs:sequence> <!-- Ordre spécifique-->
+
+        <!-- Définition de la structure pour la Table1 -->
+        <xs:element name="Best_player_by_position">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Player" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="position" type="xs:string"/>
+                    <xs:element name="full_name" type="xs:string"/>
+                    <xs:element name="rating" type="xs:string"/>
+                    <xs:element name="team" type="xs:string"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+
+        <!-- Définition de la structure pour la Table2 -->
+        <xs:element name="In_depth_player_review">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Player" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="full_name" type="xs:string"/>
+                    <xs:element name="jersey" type="xs:integer"/>
+                    <xs:element name="team" type="xs:string"/>
+                    <xs:element name="height" type="xs:string"/>
+                    <xs:element name="weight" type="xs:string"/>
+                    <xs:element name="b_day" type="xs:string"/>
+                    <xs:element name="salary" type="xs:string"/>
+                    <xs:element name="country" type="xs:string"/>
+                    <xs:element name="college" type="xs:string"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+
+        <!-- Définition de la structure pour la Table3 -->
+        <xs:element name="Draft_info">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Player" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="full_name" type="xs:string"/>
+                    <xs:element name="draft_year" type="xs:integer"/>
+                    <xs:element name="draft_round" type="xs:string"/>
+                    <xs:element name="draft_peak" type="xs:string"/>
+                    <xs:element name="college" type="xs:string"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>
+

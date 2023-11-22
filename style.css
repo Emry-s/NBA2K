@@ -1,0 +1,50 @@
+/* Style général de la table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+    margin: 20px 0;
+}
+
+/* Style de l'en-tête de la table */
+th {
+    background-color: #f2f2f2;
+    color: #333;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+/* Style des cellules de données */
+td {
+    text-align: left;
+    padding: 8px;
+    border: 1px solid #ccc;
+}
+
+/* Style pour les lignes impaires (pour une meilleure lisibilité) */
+tr:nth-child(odd) {
+    background-color: #f9f9f9;
+}
+
+/* Style pour les liens dans la table */
+a {
+    text-decoration: none;
+    color: #0073e6;
+    font-weight: bold;
+}
+
+/* Style pour les liens lorsqu'ils sont survolés */
+a:hover {
+    text-decoration: underline;
+}
+
+/* Style pour le titre de la table */
+h1 {
+    text-align: center;
+    background-color: #0073e6;
+    color: #fff;
+    padding: 10px;
+    font-size: 24px;
+}
