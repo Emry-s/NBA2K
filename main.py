@@ -78,7 +78,6 @@ def create_formatted_xml(formatted_data):
         f.write(pretty_xml)
 
 
-# Fonction pour transférer les données vers PostgresSQL
 def transfer_to_postgresql():
     connection_to_pg = psycopg2.connect(
         host="localhost",
@@ -97,21 +96,34 @@ def transfer_to_postgresql():
 
     for table_name, table_columns in tables.items():
         column_definitions = [f"{col} TEXT" for col in table_columns]
-        # cette ligne crée une chaîne de texte avec le nom de la colonne suivi de "TEXT" (= type)
         cursor.execute(f"CREATE TABLE IF NOT EXISTS {table_name} ({', '.join(column_definitions)})")
 
-        tree = XML_TREE.parse('nba_data_formatted.xml')  # Charge le fichier XML
-        root = tree.getroot()  # obtient la racine de l'XML
+        tree = XML_TREE.parse('nba_data_formatted.xml')
+        root = tree.getroot()
 
-        for player in root.findall(".//Player"):  # recherche tous les éléments <Player> dans le fichier XML
-            values = [player.find(col).text if player.find(col) is not None else "" for col in table_columns]
-            # Cette ligne crée une liste 'values' contenant les valeurs des colonnes pour un joueur donné. Elle vérifie
-            # si chaque colonne existe pour le joueur avant de récupérer sa valeur.
-            placeholders = ', '.join(['%s' for _ in values])
-            # Une liste de %s séparés par des virgules. Cette chaîne sera utilisée dans l'instruction SQL pour
-            # spécifier les emplacements des valeurs à insérer dans la base de données
-            cursor.execute(f"INSERT INTO {table_name} ({', '.join(table_columns)}) VALUES ({placeholders})",
-                           tuple(values))
+        # Insertion des données de la section 'Best_player_by_position'
+        if table_name == "best_by_position":
+            for player in root.findall(".//Best_player_by_position/Player"):
+                values = [player.find(col).text if player.find(col) is not None else "" for col in table_columns]
+                placeholders = ', '.join(['%s' for _ in values])
+                cursor.execute(f"INSERT INTO {table_name} ({', '.join(table_columns)}) VALUES ({placeholders})",
+                               tuple(values))
+
+        # Insertion des données de la section 'In_depth_player_review'
+        if table_name == "players_description":
+            for player in root.findall(".//In_depth_player_review/Player"):
+                values = [player.find(col).text if player.find(col) is not None else "" for col in table_columns]
+                placeholders = ', '.join(['%s' for _ in values])
+                cursor.execute(f"INSERT INTO {table_name} ({', '.join(table_columns)}) VALUES ({placeholders})",
+                               tuple(values))
+
+        # Insertion des données de la section 'Draft_info'
+        if table_name == "draft_info":
+            for player in root.findall(".//Draft_info/Player"):
+                values = [player.find(col).text if player.find(col) is not None else "" for col in table_columns]
+                placeholders = ', '.join(['%s' for _ in values])
+                cursor.execute(f"INSERT INTO {table_name} ({', '.join(table_columns)}) VALUES ({placeholders})",
+                               tuple(values))
 
     connection_to_pg.commit()
     connection_to_pg.close()
